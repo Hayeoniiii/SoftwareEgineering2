@@ -1,102 +1,205 @@
 #include <fstream>
+#include <iostream>
 #include <string>
-#include "SignUpUI.h"
+#include "SignupUI.h"
 #include "LoginUI.h"
+#include "Signup.h"
+#include "Login.h"
+#include "UserInfo.h"
 #include "LogoutUI.h"
+#include "Logout.h"
 #include "BikeRegisterUI.h"
+#include "RegisterBike.h"
+#include "Bike.h"
+#include "RentBike.h"
 #include "RentBikeUI.h"
-#include "BikeInfoUI.h"
+#include "CheckRental.h"
+
+#define MAX_STRING 32
+//#define INPUT_FILE_NAME "input.txt"
+//#define OUTPUT_FILE_NAME "output.txt"
+#define INPUT_FILE_NAME "C:/Users/hayeo/source/repos/hw2/hw2/x64/Debug/input.txt"
+#define OUTPUT_FILE_NAME "C:/Users/hayeo/source/repos/hw2/hw2/x64/Debug/output.txt"
+
 
 using namespace std;
 
-ifstream in_fp("input.txt");
-ofstream out_fp("output.txt");
-
 void doTask();
-void join();
-void logIn();
-void logOut();
-void registerBike();
-void rentBike();
-void displayRentalList();
-void programExit();
+void Signup();
+void Login();
+void Logout();
+void BikeRegister();
+void BikeRent();
+void ShowRentalInfo();
+void program_exit();
 
+ofstream out_fp;
+ifstream in_fp;
+
+static SignUp SignupControl;
+static LogIn loginControl;
+static LogOut logoutControl;
+static RegisterBike registerControl;
+static RentBike rentControl;
+static CheckRental checkControl;
+UserInfo* currentUser = nullptr;
+
+void Signup() {
+	std::string id, pw, phonenumber;
+
+	in_fp >> id >> pw >> phonenumber;
+
+	SignupControl.RequestSignup(id, pw, phonenumber);
+
+	out_fp << "1.1 È¸¿ø°¡ÀÔ\n";
+	out_fp << ">" << id << " " << pw << " " << phonenumber << "\n\n";
+}
+
+
+void Login() {
+	std::string id, pw;
+
+	in_fp >> id >> pw;
+
+	currentUser=loginControl.RequestLogin(id, pw);
+
+	out_fp << "2.1 ·Î±×ÀÎ\n";
+	out_fp << ">" << id << " " << pw << "\n\n";
+}
+
+void Logout() {
+	if (currentUser != nullptr) {
+		std::string prevID = currentUser->GetUserID();
+		bool success = logoutControl.RequestLogout();
+
+		if (success) {
+			currentUser = nullptr;
+
+			out_fp << "2.2 ·Î±×¾Æ¿ô\n";
+			out_fp << ">" << prevID << "\n\n";
+		}
+	}
+}
+
+void BikeRegister() {
+	std::string id, name;
+	in_fp >> id >> name;
+
+	bool success = registerControl.RequestRegisterBike(id, name);
+
+	out_fp << "3.1 ÀÚÀü°Å µî·Ï\n";
+	out_fp << ">" << id << " " << name << "\n\n";
+}
+
+void BikeRent() {
+	std::string id;
+	in_fp >> id;
+
+	bool success = rentControl.RequestRent(id);
+	if (success) {
+		Bike* b = Bike::FindBike(id);
+		out_fp << "4.1 ÀÚÀü°Å ´ë¿©\n";
+		out_fp << ">" << b->GetBikeID() << " " << b->GetBikeName() << "\n\n";
+	}
+}
+
+void ShowRentalInfo() {
+	auto list = checkControl.RequestRentalInfo();
+
+	out_fp << "5.1 ÀÚÀü°Å ´ë¿© ¸®½ºÆ®\n";
+
+	for (auto b : list) {
+		out_fp << ">" << b->GetBikeID() << " " << b->GetBikeName() << "\n";
+	}							 
+	out_fp << "\n";
+}
+
+bool exitFlag = false;
+
+void program_exit() {
+	out_fp << "6.1 Á¾·á\n";
+	exitFlag = 1;
+}
 
 int main() {
-    in_fp.open("input.txt");
-    out_fp.open("output.txt");
+	in_fp.open(INPUT_FILE_NAME);
+	out_fp.open(OUTPUT_FILE_NAME);
 
-    doTask();
+	UserInfo::AddUser("admin", "admin", "00000000000");
 
-    out_fp.close();
-    in_fp.close();
-    return 0;
+	doTask();
+
+	out_fp.close();
+	in_fp.close();
+
+	return 0;
 }
 
 void doTask() {
-    int a = 0, b = 0;
-    bool exitFlag = false;
+	int menu_level_1 = 0, menu_level_2 = 0;
 
-    while (!exitFlag && (in_fp >> a >> b)) {
-        switch (a) {
-            case 1:
-                if (b == 1) join();
-                break;
-            case 2:
-                if      (b == 1) logIn();
-                else if (b == 2) logOut();
-                break;
-            case 3:
-                if (b == 1) registerBike();
-                break;
-            case 4:
-                if (b == 1) rentBike();
-                break;
-            case 5:
-                if (b == 1) displayRentalList();
-                break;
-            case 6:
-                if (b == 1) {
-                    programExit();
-                    exitFlag = true;
-                }
-                break;
-            default:
-                break;
-        }
-    }
-}
+	while (!exitFlag)
+	{
+		in_fp >> menu_level_1 >> menu_level_2;
 
-void join() {
-    out_fp << "1.1. íšŒì›ê°€ìž…\n";
-    SignUpUI::getInstance().display();
-}
+		switch (menu_level_1) {
+		case 1:
+			switch (menu_level_2) {
+			case 1:
+				Signup();
+				break;
+			}
+			break;
+		case 2:
+			switch (menu_level_2) {
+			case 1: {
+				Login();
+				break;
+			}
+			case 2: {
+				Logout();
 
-void logIn() {
-    out_fp << "2.1. ë¡œê·¸ì¸\n";
-    LoginUI::getInstance().display();
-}
+				break;
+			}
+			}
+			break;
+		case 3: 
+			switch (menu_level_2) {
+			case 1: {
+				BikeRegister();
 
-void logOut() {
-    out_fp << "2.2. ë¡œê·¸ì•„ì›ƒ\n";
-    LogoutUI::getInstance().display();
-}
+				break;
+			}
+			}
+			break;
+		case 4:
+			switch (menu_level_2) {
+			case 1: {
+				BikeRent();
 
-void registerBike() {
-    out_fp << "3.1. ìžì „ê±° ë“±ë¡\n";
-    BikeRegisterUI::getInstance().display();
-}
+				break;
+			}
+			}
+			break;
+		case 5:
+			switch (menu_level_2) {
+			case 1: {
+				ShowRentalInfo();
 
-void rentBike() {
-    out_fp << "4.1. ìžì „ê±° ëŒ€ì—¬\n";
-    RentBikeUI::getInstance().display();
-}
+				break;
 
-void displayRentalList() {
-    out_fp << "5.1. ìžì „ê±° ëŒ€ì—¬ ë¦¬ìŠ¤íŠ¸\n";
-    BikeInfoUI::getInstance().display();
-}
+			}
+			}
+			break;
+		case 6:
+			switch (menu_level_2) {
+			case 1: {
+				program_exit();
 
-void programExit() {
-    out_fp << "6.1. ì¢…ë£Œ\n";
+				break;
+			}
+			}
+			break;
+		}
+	}
 }

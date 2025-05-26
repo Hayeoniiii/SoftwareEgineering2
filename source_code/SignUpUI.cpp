@@ -1,22 +1,19 @@
-#include "SignUpUI.h"
+#include "SignupUI.h"
 #include "Signup.h"
+#include <iostream>
 #include <fstream>
-using namespace std;
+#include <string>
 
-extern ifstream in_fp;
-extern ofstream out_fp;
+extern std::ifstream in_fp;
+extern std::ofstream out_fp;
 
-SignUpUI::SignUpUI() {}
+static SignUp SignupControl;
 
-SignUpUI& SignUpUI::getInstance() {
-    static SignUpUI inst;
-    return inst;
+SignupUI::SignupUI() {
+	SignupControl = new SignUp();
 }
 
-void SignUpUI::display() {
-    out_fp << "1.1. 회원가입\n";
-    string id, pw, phone;
-    in_fp >> id >> pw >> phone;
-    out_fp << "> " << id << " " << pw << " " << phone << "\n";
-    Signup::getInstance().requestSignUp(id, pw, phone);
+SignupUI::~SignupUI() {
+	delete SignupControl;
 }
+

@@ -1,18 +1,11 @@
 #ifndef SIGNUP_H
 #define SIGNUP_H
 
-#include <vector>
-#include "User.h"
+#include <string>
 
-class Signup {
-    vector<User*> users;
-    Signup();
+class SignUp {
 public:
-    static Signup& getInstance();
-    bool requestSignUp(const string& id,
-                       const string& pw,
-                       const string& phone);
-    const vector<User*>& getUsers() const;
+	bool RequestSignup(const std::string& id, const std::string& password, const std::string& phonenumber);
 };
 
-#endif // SIGNUP_H
+#endif

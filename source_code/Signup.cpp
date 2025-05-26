@@ -1,22 +1,6 @@
 #include "Signup.h"
-using namespace std;
+#include "UserInfo.h"
 
-Signup::Signup() {}
-
-Signup& Signup::getInstance() {
-    static Signup inst;
-    return inst;
-}
-
-bool Signup::requestSignUp(const string& id,
-                           const string& pw,
-                           const string& phone) {
-    for (auto u : users)
-        if (u->getID() == id) return false;
-    users.push_back(new User(id, pw, phone));
-    return true;
-}
-
-const vector<User*>& Signup::getUsers() const {
-    return users;
+bool SignUp::RequestSignup(const std::string& id, const std::string& password, const std::string& phonenumber) {
+	return UserInfo::AddUser(id, password, phonenumber);
 }

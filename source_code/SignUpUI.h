@@ -1,12 +1,14 @@
 #ifndef SIGNUPUI_H
 #define SIGNUPUI_H
 
+class SignUp;
 
-class SignUpUI {
-    SignUpUI();
-public:
-    static SignUpUI& getInstance();
-    void display();
+class SignupUI {
+private:
+	SignUp *SignupControl;
+public: 
+	SignupUI();
+	~SignupUI();
 };
 
-#endif // SIGNUPUI_H
+#endif
