@@ -16,10 +16,10 @@
 #include "CheckRental.h"
 
 #define MAX_STRING 32
-//#define INPUT_FILE_NAME "input.txt"
-//#define OUTPUT_FILE_NAME "output.txt"
-#define INPUT_FILE_NAME "C:/Users/hayeo/source/repos/hw2/hw2/x64/Debug/input.txt"
-#define OUTPUT_FILE_NAME "C:/Users/hayeo/source/repos/hw2/hw2/x64/Debug/output.txt"
+#define INPUT_FILE_NAME "input.txt"
+#define OUTPUT_FILE_NAME "output.txt"
+//#define INPUT_FILE_NAME "C:/Users/hayeo/source/repos/hw2/hw2/x64/Debug/input.txt"
+//#define OUTPUT_FILE_NAME "C:/Users/hayeo/source/repos/hw2/hw2/x64/Debug/output.txt"
 
 
 using namespace std;
@@ -51,7 +51,7 @@ void Signup() {
 
 	SignupControl.RequestSignup(id, pw, phonenumber);
 
-	out_fp << "1.1 È¸¿ø°¡ÀÔ\n";
+	out_fp << "1.1 íšŒì›ê°€ìž…\n";
 	out_fp << ">" << id << " " << pw << " " << phonenumber << "\n\n";
 }
 
@@ -63,7 +63,7 @@ void Login() {
 
 	currentUser=loginControl.RequestLogin(id, pw);
 
-	out_fp << "2.1 ·Î±×ÀÎ\n";
+	out_fp << "2.1 ë¡œê·¸ì¸\n";
 	out_fp << ">" << id << " " << pw << "\n\n";
 }
 
@@ -75,7 +75,7 @@ void Logout() {
 		if (success) {
 			currentUser = nullptr;
 
-			out_fp << "2.2 ·Î±×¾Æ¿ô\n";
+			out_fp << "2.2 ë¡œê·¸ì•„ì›ƒ\n";
 			out_fp << ">" << prevID << "\n\n";
 		}
 	}
@@ -87,7 +87,7 @@ void BikeRegister() {
 
 	bool success = registerControl.RequestRegisterBike(id, name);
 
-	out_fp << "3.1 ÀÚÀü°Å µî·Ï\n";
+	out_fp << "3.1 ìžì „ê±° ë“±ë¡\n";
 	out_fp << ">" << id << " " << name << "\n\n";
 }
 
@@ -98,7 +98,7 @@ void BikeRent() {
 	bool success = rentControl.RequestRent(id);
 	if (success) {
 		Bike* b = Bike::FindBike(id);
-		out_fp << "4.1 ÀÚÀü°Å ´ë¿©\n";
+		out_fp << "4.1 ìžì „ê±° ëŒ€ì—¬\n";
 		out_fp << ">" << b->GetBikeID() << " " << b->GetBikeName() << "\n\n";
 	}
 }
@@ -106,7 +106,7 @@ void BikeRent() {
 void ShowRentalInfo() {
 	auto list = checkControl.RequestRentalInfo();
 
-	out_fp << "5.1 ÀÚÀü°Å ´ë¿© ¸®½ºÆ®\n";
+	out_fp << "5.1 ìžì „ê±° ëŒ€ì—¬ ë¦¬ìŠ¤íŠ¸\n";
 
 	for (auto b : list) {
 		out_fp << ">" << b->GetBikeID() << " " << b->GetBikeName() << "\n";
@@ -117,7 +117,7 @@ void ShowRentalInfo() {
 bool exitFlag = false;
 
 void program_exit() {
-	out_fp << "6.1 Á¾·á\n";
+	out_fp << "6.1 ì¢…ë£Œ\n";
 	exitFlag = 1;
 }
 
