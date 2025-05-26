@@ -1,18 +1,15 @@
 #include "BikeRegisterUI.h"
 #include "RegisterBike.h"
-using namespace std;
+#include <fstream>
+#include <string>
 
-BikeRegisterUI::BikeRegisterUI() {}
+extern std::ifstream in_fp;
+extern std::ofstream out_fp;
 
-BikeRegisterUI& BikeRegisterUI::getInstance() {
-    static BikeRegisterUI inst;
-    return inst;
+BikeRegisterUI::BikeRegisterUI()
+	:registerControl(new RegisterBike()) {
 }
 
-void BikeRegisterUI::display() {
-    out_fp << "3.1. 자전거 등록\n";
-    string id, maker;
-    in_fp >> id >> maker;
-    out_fp << "> " << id << " " << maker << "\n";
-    RegisterBike::getInstance().requestBikeRegister(id, maker);
+BikeRegisterUI::~BikeRegisterUI() {
+	delete registerControl;
 }

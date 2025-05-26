@@ -1,12 +1,14 @@
 #ifndef BIKEINFOUI_H
 #define BIKEINFOUI_H
 
+class CheckRental;
 
 class BikeInfoUI {
-    BikeInfoUI();
+private:
+	CheckRental* checkControl;
 public:
-    static BikeInfoUI& getInstance();
-    void display();
+	BikeInfoUI();
+	~BikeInfoUI();
 };
 
-#endif // BIKEINFOUI_H
+#endif
