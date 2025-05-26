@@ -1,11 +1,14 @@
 #ifndef RENTBIKEUI_H
 #define RENTBIKEUI_H
 
+class RentBike;
+
 class RentBikeUI {
-    RentBikeUI();
+private:
+	RentBike* rentControl;
 public:
-    static RentBikeUI& getInstance();
-    void display();
+	RentBikeUI();
+	~RentBikeUI();
 };
 
-#endif // RENTBIKEUI_H
+#endif

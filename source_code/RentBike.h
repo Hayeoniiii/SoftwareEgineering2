@@ -1,15 +1,11 @@
 #ifndef RENTBIKE_H
 #define RENTBIKE_H
 
-#include "Login.h"
-#include "RegisterBike.h"
+#include <string>
 
 class RentBike {
-    RentBike();
 public:
-    static RentBike& getInstance();
-    bool requestRent(const string& id,
-                     const string& maker);
+	bool RequestRent(const std::string& id);
 };
 
-#endif // RENTBIKE_H
+#endif

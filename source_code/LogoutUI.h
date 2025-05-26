@@ -1,11 +1,15 @@
 #ifndef LOGOUTUI_H
 #define LOGOUTUI_H
 
+class LogOut;
+
 class LogoutUI {
-    LogoutUI();
-public:
-    static LogoutUI& getInstance();
-    void display();
+private:
+	LogOut* logoutControl;
+public: 
+	LogoutUI();
+	~LogoutUI();
+
 };
 
-#endif // LOGOUTUI_H
+#endif

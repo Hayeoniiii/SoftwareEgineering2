@@ -1,21 +1,6 @@
 #include "RegisterBike.h"
-using namespace std;
+#include "Bike.h"
 
-RegisterBike::RegisterBike() {}
-
-RegisterBike& RegisterBike::getInstance() {
-    static RegisterBike inst;
-    return inst;
-}
-
-bool RegisterBike::requestBikeRegister(const string& id,
-                                       const string& maker) {
-    for (auto b : bikes)
-        if (b->getID() == id) return false;
-    bikes.push_back(new Bike(id, maker));
-    return true;
-}
-
-const vector<Bike*>& RegisterBike::getBikes() const {
-    return bikes;
+bool RegisterBike::RequestRegisterBike(const std::string& id, const std::string& name) {
+	return Bike::AddBike(id, name);
 }

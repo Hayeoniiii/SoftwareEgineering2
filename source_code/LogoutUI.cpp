@@ -1,22 +1,20 @@
 #include "LogoutUI.h"
 #include "Logout.h"
+#include "UserInfo.h"
 #include <fstream>
-using namespace std;
+#include <string>
 
-extern ifstream in_fp;
-extern ofstream out_fp;
+extern std::ifstream in_fp;
+extern std::ofstream out_fp;
 
-LogoutUI::LogoutUI() {}
+extern UserInfo* currentUser;
 
-LogoutUI& LogoutUI::getInstance() {
-    static LogoutUI inst;
-    return inst;
+LogoutUI::LogoutUI()
+	: logoutControl(new LogOut())
+{
 }
 
-void LogoutUI::display() {
-    out_fp << "2.2. 로그아웃\n";
-    User* u = Login::getInstance().getCurrentUser();
-    string id = u ? u->getID() : "";
-    out_fp << "> " << id << "\n";
-    Logout::getInstance().requestLogout();
+LogoutUI::~LogoutUI() {
+	delete logoutControl;
 }
+
