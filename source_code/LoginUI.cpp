@@ -1,22 +1,19 @@
 #include "LoginUI.h"
 #include "Login.h"
 #include <fstream>
-using namespace std;
+#include <string>
 
-extern ifstream in_fp;
-extern ofstream out_fp;
+class LogIn;
 
-LoginUI::LoginUI() {}
+extern std::ifstream in_fp;
+extern std::ofstream out_fp;
+																		  
+static LogIn loginControl;
 
-LoginUI& LoginUI::getInstance() {
-    static LoginUI inst;
-    return inst;
+LoginUI::LoginUI()
+	:loginControl(new LogIn()) {
 }
 
-void LoginUI::display() {
-    out_fp << "2.1. 로그인\n";
-    string id, pw;
-    in_fp >> id >> pw;
-    out_fp << "> " << id << " " << pw << "\n";
-    Login::getInstance().requestLogin(id, pw);
+LoginUI::~LoginUI() {
+	delete loginControl;
 }

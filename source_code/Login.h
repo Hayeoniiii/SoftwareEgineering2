@@ -2,16 +2,11 @@
 #define LOGIN_H
 
 #include <string>
-#include "User.h"
+#include "UserInfo.h"
 
-class Login {
-    User* currentUser;
-    Login();
-public:
-    static Login& getInstance();
-    bool requestLogin(const string& id, const string& pw);
-    User* getCurrentUser() const;
-    void clear();
+class LogIn {
+public: 
+	UserInfo* RequestLogin(const std::string& id, const std::string& password);
 };
 
-#endif // LOGIN_H
+#endif

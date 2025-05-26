@@ -1,17 +1,12 @@
 #include "Logout.h"
-using namespace std;
+#include "UserInfo.h"
 
-Logout::Logout() {}
+extern UserInfo* currentUser;
 
-Logout& Logout::getInstance() {
-    static Logout inst;
-    return inst;
-}
-
-bool Logout::requestLogout() {
-    if (Login::getInstance().getCurrentUser()) {
-        Login::getInstance().clear();
-        return true;
-    }
-    return false;
+bool LogOut::RequestLogout() {
+	if (currentUser) {
+		currentUser = nullptr;
+		return true;
+	}
+	return false;
 }

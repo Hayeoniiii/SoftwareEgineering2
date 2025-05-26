@@ -1,28 +1,9 @@
 #include "Login.h"
-#include "Signup.h"
-using namespace std;
+#include "UserInfo.h"
 
-Login::Login() : currentUser(nullptr) {}
 
-Login& Login::getInstance() {
-    static Login inst;
-    return inst;
-}
-
-bool Login::requestLogin(const string& id, const string& pw) {
-    for (auto u : Signup::getInstance().getUsers()) {
-        if (u->getID() == id && u->getPassword() == pw) {
-            currentUser = u;
-            return true;
-        }
-    }
-    return false;
-}
-
-User* Login::getCurrentUser() const {
-    return currentUser;
-}
-
-void Login::clear() {
-    currentUser = nullptr;
-}
+UserInfo* LogIn::RequestLogin(const std::string& id, const std::string& password) {
+	if (UserInfo::ValidateUser(id, password)) {
+		return UserInfo::FindUser(id);
+	}
+}								

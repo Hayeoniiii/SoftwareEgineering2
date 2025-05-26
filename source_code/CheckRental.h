@@ -2,13 +2,11 @@
 #define CHECKRENTAL_H
 
 #include <vector>
-#include "Login.h"
+#include "Bike.h"
 
 class CheckRental {
-    CheckRental();
 public:
-    static CheckRental& getInstance();
-    vector<Bike*> requestRental();
+	std::vector<Bike*> RequestRentalInfo();
 };
 
-#endif // CHECKRENTAL_H
+#endif

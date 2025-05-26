@@ -1,12 +1,15 @@
 #ifndef LOGINUI_H
 #define LOGINUI_H
 
+class LogIn;
 
 class LoginUI {
-    LoginUI();
+private:
+	LogIn* loginControl;
 public:
-    static LoginUI& getInstance();
-    void display();
+	LoginUI();
+	~LoginUI();
+
 };
 
-#endif // LOGINUI_H
+#endif

@@ -1,12 +1,15 @@
-#ifndef BIKEREGISTERUI_H
-#define BIKEREGISTERUI_H
+#ifndef BIKEREGISTER_H
+#define BIKEREGISTER_H
 
+class RegisterBike;
 
 class BikeRegisterUI {
-    BikeRegisterUI();
+private:
+	RegisterBike* registerControl;
 public:
-    static BikeRegisterUI& getInstance();
-    void display();
+	BikeRegisterUI();
+	~BikeRegisterUI();
+
 };
 
-#endif // BIKEREGISTERUI_H
+#endif

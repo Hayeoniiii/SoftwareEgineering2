@@ -1,15 +1,12 @@
 #include "CheckRental.h"
-using namespace std;
 
-CheckRental::CheckRental() {}
+std::vector<Bike*> CheckRental::RequestRentalInfo() {
+	std::vector<Bike*> rented;
 
-CheckRental& CheckRental::getInstance() {
-    static CheckRental inst;
-    return inst;
-}
-
-vector<Bike*> CheckRental::requestRental() {
-    User* u = Login::getInstance().getCurrentUser();
-    if (u) return u->getRentedBikes();
-    return {};
+	for (auto b : Bike::GetBikes()) {
+		if (b->IsRented()) {
+			rented.push_back(b);
+		}
+	}
+	return rented;
 }
