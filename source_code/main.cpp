@@ -51,7 +51,7 @@ void Signup() {
 
 	SignupControl.RequestSignup(id, pw, phonenumber);
 
-	out_fp << "1.1 ȸ������\n";
+	out_fp << "1.1 회원가입\n";
 	out_fp << ">" << id << " " << pw << " " << phonenumber << "\n\n";
 }
 
@@ -63,7 +63,7 @@ void Login() {
 
 	currentUser=loginControl.RequestLogin(id, pw);
 
-	out_fp << "2.1 �α���\n";
+	out_fp << "2.1 로그인\n";
 	out_fp << ">" << id << " " << pw << "\n\n";
 }
 
@@ -75,7 +75,7 @@ void Logout() {
 		if (success) {
 			currentUser = nullptr;
 
-			out_fp << "2.2 �α׾ƿ�\n";
+			out_fp << "2.2 로그아웃\n";
 			out_fp << ">" << prevID << "\n\n";
 		}
 	}
@@ -87,7 +87,7 @@ void BikeRegister() {
 
 	bool success = registerControl.RequestRegisterBike(id, name);
 
-	out_fp << "3.1 ������ ���\n";
+	out_fp << "3.1 자전거 등록\n";
 	out_fp << ">" << id << " " << name << "\n\n";
 }
 
@@ -98,7 +98,7 @@ void BikeRent() {
 	bool success = rentControl.RequestRent(id);
 	if (success) {
 		Bike* b = Bike::FindBike(id);
-		out_fp << "4.1 ������ �뿩\n";
+		out_fp << "4.1 자전거 대여\n";
 		out_fp << ">" << b->GetBikeID() << " " << b->GetBikeName() << "\n\n";
 	}
 }
@@ -106,7 +106,7 @@ void BikeRent() {
 void ShowRentalInfo() {
 	auto list = checkControl.RequestRentalInfo();
 
-	out_fp << "5.1 ������ �뿩 ����Ʈ\n";
+	out_fp << "5.1 자전거 대여 리스트\n";
 
 	for (auto b : list) {
 		out_fp << ">" << b->GetBikeID() << " " << b->GetBikeName() << "\n";
@@ -117,7 +117,7 @@ void ShowRentalInfo() {
 bool exitFlag = false;
 
 void program_exit() {
-	out_fp << "6.1 ����\n";
+	out_fp << "6.1 종료\n";
 	exitFlag = 1;
 }
 
